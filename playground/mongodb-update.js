@@ -7,25 +7,36 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     }
     console.log('Connected to MongoDB server.');
 
-    //deleteMany
-    db.collection('Todos').deleteMany({text: 'Call grandma'}).then((result) => {
-        console.log(result);
-    }, (err) => {
-        console.log('Cannot delete todos.', err)
-    });
+    //fineOneAndUpdate
+    // db.collection('Todos').findOneAndUpdate({
+    //     text: 'laba tayo'
+    // }, {
+    //     $set: {
+    //         completed: true
+    //     }
+    // }, {
+    //     returnOriginal: false
+    // }).then((result) => {
+    //     console.log(result);
+    // }, (err) => {
+    //     console.log('Cannot update todo.', err)
+    // });
 
-    //deleteOne
-    db.collection('Todos').deleteOne({text: 'Call grandma'}).then((result) => {
+    db.collection('Users').findOneAndUpdate({
+        _id: ObjectID('59ff024547a7bd4540521968')
+    }, {
+        $inc: {
+            age: -1
+        },
+        $set: {
+            name: 'Danilo'
+        }
+    }, {
+        returnOriginal: false
+    }).then((result) => {
         console.log(result);
     }, (err) => {
-        console.log('Cannot delete todo.', err)
-    });
-
-    //fineOneAndDelete
-    db.collection('Todos').findOneAndDelete({completed: false}).then((result) => {
-        console.log(result);
-    }, (err) => {
-        console.log('Cannot delete todo.', err)
+        console.log(`Unable to update user.`, err);
     });
 
     // db.close();
